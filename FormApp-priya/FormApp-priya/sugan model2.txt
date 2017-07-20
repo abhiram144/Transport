@@ -1,0 +1,30 @@
+Ext.define('FormApplication.model.NewModel', {
+     extend: 'Ext.data.Model',
+     
+     config: {
+                 fields: 
+                 [
+                  {name:'UserName',type:'String'},
+                  {name:'Password',type:'auto'}
+              ],
+              idProperty:'UserName',
+                 identifier:'uuid',
+                 validations:
+                 [
+               {field:'UserName',type:'presence',message:'UserName is Mandatory'},
+                      {field:'UserName',type:'inclusion',list:['suganya']},
+
+                     {field:'Password',type:'presence',message:'Password is Mandatory'},
+                      {field:'Password',type:'inclusion',list:['admin']},
+                 ],
+                 proxy:
+                 {
+                     type:'ajax',
+                     reader:
+                     {
+                         type:'json'
+                     }
+                 },
+                 
+     }
+ });

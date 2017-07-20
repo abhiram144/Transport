@@ -1,0 +1,125 @@
+Ext.define('FormApplication.controller.MyControl', {
+     extend: 'Ext.app.Controller',
+    requires:['Ext.Button','Ext.TitleBar','FormApplication.view.EmpManager3'],
+     config: {
+         refs: {
+             addid:'#addid',
+             but1:'#but1',
+             view1 :'emp2',
+             out:'#logoutbtn',
+             form1:'emp1'
+         },
+         control: 
+         {
+             but1:
+             {
+                 tap:function()
+                 {
+                     f1values=this.getForm1().getValues();
+                     f1models=Ext.create('FormApplication.model.NewModel',f1values);
+                     var errors1=f1models.validate();
+                     if(errors1.isValid())
+                     { 
+                         Ext.Msg.alert("Login Successful");
+                         Ext.Viewport.removeAll(false);
+                         Ext.Viewport.add(Ext.create('FormApplication.view.EmpManager2'));
+                     }
+                     else
+                     {
+                         for(var i=0;i<errors1.items.length;i++)
+                         {
+                             console.log(errors1.items[i].getField()+" "+errors1.items[i].getMessage());
+                         }
+                         Ext.Msg.alert("Enter Correct Details");
+                     }
+                 }
+             },
+             addid:
+             {   
+                 tap:function()
+                 {
+                     
+                     // obj1=this.getView1().getValues();
+                     // localStorage.setItem("emp2details",JSON.stringify(obj1));
+                     //this.callmethod();
+     
+                     var form    = this.getView1();
+                     formValues  = form.getValues();
+                     formModel=Ext.create('FormApplication.model.MyModel',formValues);
+                     console.log(formValues);
+                     var errors=formModel.validate();
+                     console.log(errors);
+                     //localStorage.emp2details.clear;
+                     console.log(errors.isValid());
+                     if(errors.isValid())
+                     { 
+                          var storedUser=[];
+                         if(localStorage.subscriptiondetails)
+                         {
+                             storedUser=JSON.parse(localStorage.subscriptiondetails);
+                         }
+                         storedUser.push(formModel.raw);
+                         localStorage.setItem("emp2details",JSON.stringify(storedUser));
+
+                        
+                         this.getView1().push(Ext.create('FormApplication.view.EmpManager3',{
+                         title:'Emp Manager',
+                     }));
+                     }
+                     else
+                     {
+                         for(var i=0;i<errors.items.length;i++)
+                         {
+                             console.log(errors.items[i].getField()+" "+errors.items[i].getMessage());
+                         }
+                         Ext.Msg.alert("Enter Correct Details");
+                     }
+
+                }
+             },
+             out:
+             {
+                 tap:function()
+                 {
+                         Ext.Viewport.removeAll(false);
+                         Ext.Viewport.add(Ext.create('FormApplication.view.EmpManager1'));
+			 window.location.href="";
+                 }
+             }
+             
+         }
+     //     routes:{
+     //         'third/page':'movetothird'
+     //     }
+         
+     // },
+     // callmethod:function()
+     // {
+     //     this.redirectTo('third/page');
+     // },
+     // movetothird:function(Name)
+     // {
+     //     Ext.Viewport.removeAll(false);
+     //     Ext.Viewport.add(Ext.create('FormApplication.view.EmpManager3'))
+     }
+     
+     
+ });
+
+// store as array
+
+                        // console.log(obj1);
+                         // if(localStorage.emp2details!=null || localStorage.emp2details!=undefined)
+                         // {
+                         //     arr=JSON.parse(localStorage.emp2details);
+                         //     arr.push(obj1);
+                         //     localStorage.setItem("emp2details",JSON.stringify(arr));
+                         // }
+                         // else
+                         // {
+                         //     arr=[];
+                         //     localStorage.setItem("emp2details",JSON.stringify(arr));
+
+                        // }
+
+ 

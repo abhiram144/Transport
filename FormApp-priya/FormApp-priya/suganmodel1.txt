@@ -1,0 +1,48 @@
+Ext.define('FormApplication.model.MyModel', {
+     extend: 'Ext.data.Model',
+     
+     config: {
+                 fields: 
+                 [
+                     { name: 'Name', type: 'String' },
+                     { name: 'Email', type: 'auto' },
+                     { name: 'PhoneNumber', type: 'int' },
+                     { name: 'Salary', type: 'int',defaultValue:'15000'},
+                     { name: 'Gender', type: 'String' },
+                     { name: 'Confirm', type: 'auto',defaultValue:'1' },
+                     
+                 ],
+                 idProperty:'Email',
+                 identifier:'uuid',
+                 validations:
+                 [
+                     {field:'Name',type:'presence',message:'Name is Mandatory'},
+                     {field:'Name',type:'length',max:10,message:'Length Exceeded'},
+                     {field:'Name',type:'format',matcher:/[a-zA-Z]+/},
+
+                    {field:'Email',type:'presence',message:'Email is Mandatory'},
+                     {field:'Email',type:'format',matcher:/^[a-zA-Z][a-zA-Z0-9]+@[a-z]+.[a-z]+/},
+
+                    {field:'PhoneNumber',type:'presence',message:'PhoneNumber is Mandatory'},
+                     {field:'PhoneNumber',type:'format',matcher:/\d{10}/},
+                     // {field:'PhoneNumber',type:'length',message:'Maximum 10'},
+
+                    {field:'Salary',type:'presence',message:'Salary is Mandatory'},
+                     
+                     {field:'Gender',type:'presence',message:'Gender is Mandatory'},
+                     // {field:'Gender',type:'inclusion',list:['male','female','m','f']},
+
+                    {field:'Confirm',type:'presence',message:'Confirm is Mandatory'}
+                      
+                 ],
+                 proxy:
+                 {
+                     type:'ajax',
+                     reader:
+                     {
+                         type:'json'
+                     }
+                 },
+                 
+     }
+ });
